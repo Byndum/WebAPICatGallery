@@ -1,0 +1,6 @@
+@WebAPICatGallery_HostAddress = http://localhost:5007
+
+GET {{WebAPICatGallery_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
