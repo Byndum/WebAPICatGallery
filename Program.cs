@@ -1,5 +1,6 @@
 
 using MongoDB.Driver;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Collections;
 using WebAPICatGallery.Repositories;
 
@@ -11,7 +12,7 @@ namespace WebAPICatGallery
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //builder.WebHost.ConfigureKestrel(options => options.ListenLocalhost(5000));
+            //builder.WebHost.ConfigureKestrel(options => options.ListenLocalhost(8080));
 
 
             // Add services to the container.
@@ -29,11 +30,22 @@ namespace WebAPICatGallery
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = ""; // or "swagger" to serve Swagger UI at the /swagger endpoint
+            });
+            
+            /*
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c => {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                    c.RoutePrefix = ""; // or "swagger" to serve Swagger UI at the /swagger endpoint
+                });
             }
+            */
 
             //app.UseHttpsRedirection();
 
