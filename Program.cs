@@ -2,9 +2,9 @@
 using MongoDB.Driver;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Collections;
-using WebAPICatGallery.Repositories;
+using WebAPIParcelTracking.Repositories;
 
-namespace WebAPICatGallery
+namespace WebAPIParcelTracking
 {
     public class Program
     {
@@ -22,10 +22,10 @@ namespace WebAPICatGallery
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.Configure<CatDatabase>(
+            builder.Services.Configure<ParcelDatabase>(
                 builder.Configuration.GetSection("DatabaseCatSetting"));
 
-            builder.Services.AddSingleton<ICatRepository, CatRepository>();
+            builder.Services.AddSingleton<IParcelRepo, ParcelRepo>();
 
             var app = builder.Build();
 
@@ -57,17 +57,17 @@ namespace WebAPICatGallery
             //cats.Add(new Cat {Id="0",Name="garfield", Breed="Yellow" });
 
             //Webservice endpoints
-            app.MapGet("/cat/", async (string id, ICatRepository catRepo) =>
+            app.MapGet("/Parcel/", async (string id, IParcelRepo parcelRepo) =>
             {
                 //return cats.Where(c => c.Id == id).First();
-                return await catRepo.Get(id);
+                return await parcelRepo.Get(id);
 
             });
 
-            app.MapPost("/cat/", async (Cat cat, ICatRepository catRepo) => 
+            app.MapPost("/Parcel/", async (Parcel parcel, IParcelRepo parcelRepo) => 
             {
                 //cats.Add(cat);
-                await catRepo.Add(cat);
+                await parcelRepo.Add(parcel);
             });
 
             app.Run();

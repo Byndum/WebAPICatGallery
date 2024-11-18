@@ -1,10 +1,9 @@
-﻿namespace WebAPICatGallery
+﻿namespace WebAPIParcelTracking
 {
-    public class CatDatabase
+    public class ParcelDatabase
     {
         public string ConnectionString { get; set; } = null;
         public string DatabaseName { get; set; } = null;
-
         public string CollectionName { get; set; } = null;
     }
 }
